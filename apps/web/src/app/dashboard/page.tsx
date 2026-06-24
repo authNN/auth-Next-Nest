@@ -31,7 +31,7 @@ export default function DashboardPage() {
         } else if (res.status === 401) {
           console.log("❌ Unauthorized");
 
-          router.push("/login");
+          router.push("/auth");
         }
       } catch (error) {
         console.error("❌ Error:", error);
@@ -64,7 +64,7 @@ export default function DashboardPage() {
                   "X-ACCESS=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
                 document.cookie =
                   "X-REFRESH=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-                router.push("/login");
+                router.push("/auth");
               }}
               className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
             >

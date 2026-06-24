@@ -35,30 +35,14 @@ export class AuthController {
   async verifyOtp(@Body() dto: VerifyOtpDto, @Res() response: Response) {
     const tokens = await this.service.verifyOtp(dto);
 
-    setCookies(response, [
-      {
-        name: refreshTokenName,
-        value: tokens.refreshToken,
-        options: {
-          httpOnly: true,
-          secure: true,
-          sameSite: 'lax',
-          maxAge: refreshTokenExpireTimeByMilliSecond,
-        },
-      },
-      {
-        name: accessTokenName,
-        value: tokens.accessToken,
-        options: {
-          httpOnly: true,
-          secure: true,
-          sameSite: 'lax',
-          maxAge: accessTokenExpireTimeByMilliSecond,
-        },
-      },
-    ]);
     return response.json({
       success: true,
+      namerefresh: refreshTokenName,
+      valuerefresh: tokens.refreshToken,
+      maxAgerefresh: refreshTokenExpireTimeByMilliSecond,
+      nameaccess: accessTokenName,
+      valueaccess: tokens.accessToken,
+      maxAgeaccess: accessTokenExpireTimeByMilliSecond,
     });
   }
 

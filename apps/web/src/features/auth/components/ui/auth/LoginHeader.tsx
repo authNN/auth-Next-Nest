@@ -1,8 +1,13 @@
 "use client";
+import { H2, P } from "@/shared/components/custom/ui/typography/typography";
+import { useSearchParams } from "next/navigation";
+import { AuthStep } from "../../../assets/@types/types";
 
-import { LoginHeaderProps } from "./types";
+function LoginHeader() {
+  const searchParams = useSearchParams();
 
-export const LoginHeader = ({ step, email }: LoginHeaderProps) => {
+  const step = (searchParams.get("step") as AuthStep) ?? "send";
+  const email = searchParams.get("email") ?? "";
   const titles = {
     send: "Welcome Back",
     verify: "Verify Code",
@@ -15,8 +20,10 @@ export const LoginHeader = ({ step, email }: LoginHeaderProps) => {
 
   return (
     <div className="text-center">
-      <h2 className="text-3xl font-bold text-gray-800">{titles[step]}</h2>
-      <p className="text-gray-600 text-sm mt-1">{subtitles[step]}</p>
+      <H2 className="text-3xl font-bold text-gray-800">{titles[step]}</H2>
+      <P className="text-gray-600 text-sm mt-1">{subtitles[step]}</P>
     </div>
   );
-};
+}
+
+export default LoginHeader;
